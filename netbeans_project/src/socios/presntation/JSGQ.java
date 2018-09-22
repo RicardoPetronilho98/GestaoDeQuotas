@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JOptionPane;
 import socios.business.*;
 
 /**
@@ -41,6 +42,7 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         criarButton = new javax.swing.JButton();
         cancelarButton = new javax.swing.JButton();
         nomeTextField = new javax.swing.JTextField();
@@ -52,6 +54,17 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
         idLabel = new javax.swing.JLabel();
         errorLabel = new javax.swing.JLabel();
         sexoComboBox = new javax.swing.JComboBox<>();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registar Sócio");
@@ -166,14 +179,11 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
         
         try { 
             this.sgq.addSocio( new Socio(nome, idade, sexo, cod, new HashMap<>()) );
-            this.errorLabel.setForeground(new Color(0, 175, 65));
-            this.errorLabel.setText("registado com sucesso!");
+            JOptionPane.showMessageDialog(this, "Sócio registado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (ParametrosInvalidosException e){
-            this.errorLabel.setForeground(Color.red);
-            this.errorLabel.setText("preencha os campos!");
+            JOptionPane.showMessageDialog(this, "Parâmetros inválidos", "Insucesso", JOptionPane.ERROR_MESSAGE);
         } catch (SocioExisteException e) {
-            this.errorLabel.setForeground(Color.red);
-            this.errorLabel.setText("(" + e.getMessage() + ") já existe!");
+            JOptionPane.showMessageDialog(this, "Sócio - " + e.getMessage() + " - já existe!", "Insucesso", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_criarButtonActionPerformed
 
@@ -242,6 +252,7 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
     private javax.swing.JTextField idTextField;
     private javax.swing.JLabel idadeLabel;
     private javax.swing.JSpinner idadeSpinner;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel nomeLabel;
     private javax.swing.JTextField nomeTextField;
     private javax.swing.JComboBox<String> sexoComboBox;

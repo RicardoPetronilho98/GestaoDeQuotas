@@ -4,7 +4,7 @@ import socios.business.Aluno;
 
 public class AlunoTeste {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         // teste do Construtor vazio e do toString()
         System.out.println(new Aluno());

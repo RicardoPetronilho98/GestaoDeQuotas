@@ -24,9 +24,9 @@ public class Quota implements Comparable<Quota>{
      * @param dataDePagamento data de pagamento da Quota.
      */
     public Quota(String cod, float numerario, LocalDate dataDePagamento) {
-        this.cod = cod;
-        this.numerario = numerario;
-        this.dataDePagamento = dataDePagamento;
+        this.setCod(cod);
+        this.setNumerario(numerario);
+        this.setDataDePagamento(dataDePagamento);
     }
 
     /**

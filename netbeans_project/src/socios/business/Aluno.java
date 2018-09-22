@@ -24,11 +24,11 @@ public class Aluno {
      * @param sexo sexo do Aluno.
      * @param cod código de identificação do Aluno.
      */
-    public Aluno(String nome, int idade, char sexo, String cod) {
-        this.nome = nome;
-        this.idade = idade;
-        this.sexo = sexo;
-        this.cod = cod;
+    public Aluno(String nome, int idade, char sexo, String cod) throws ParametrosInvalidosException {
+        this.setNome(nome);
+        this.setIdade(idade);
+        this.setSexo(sexo);
+        this.setCod(cod);
     }
 
     /**
@@ -54,7 +54,8 @@ public class Aluno {
      * Define o nome do Aluno.
      * @param nome nome a ser definido.
      */
-    public void setNome(String nome) {
+    public void setNome(String nome) throws ParametrosInvalidosException {
+        if (nome == null || nome.equals("")) throw new ParametrosInvalidosException(nome);
         this.nome = nome;
     }
 
@@ -70,7 +71,8 @@ public class Aluno {
      * Define a idade do Aluno.
      * @param idade idade a ser definida.
      */
-    public void setIdade(int idade) {
+    public void setIdade(int idade) throws ParametrosInvalidosException {
+        if (idade <= 0) throw new ParametrosInvalidosException(Integer.toString(idade));
         this.idade = idade;
     }
 
@@ -86,7 +88,8 @@ public class Aluno {
      * Define o sexo do Aluno.
      * @param sexo sexo a ser definido.
      */
-    public void setSexo(char sexo) {
+    public void setSexo(char sexo) throws ParametrosInvalidosException {
+        if (sexo == ' ') throw new ParametrosInvalidosException(Character.toString(sexo));
         this.sexo = sexo;
     }
 
@@ -102,7 +105,8 @@ public class Aluno {
      * Define o código de identificação do Aluno.
      * @param cod código de identificação do Aluno a ser definido.
      */
-    public void setCod(String cod) {
+    public void setCod(String cod) throws ParametrosInvalidosException {
+        if (cod == null || cod.equals("")) throw new ParametrosInvalidosException(cod);
         this.cod = cod;
     }
 

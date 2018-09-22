@@ -12,7 +12,7 @@ public class Socio extends Aluno {
         this.quotas = new HashMap<>();
     }
 
-    public Socio(String nome, int idade, char sexo, String cod, Map<String, Quota> quotas) {
+    public Socio(String nome, int idade, char sexo, String cod, Map<String, Quota> quotas) throws ParametrosInvalidosException {
         super(nome, idade, sexo, cod);
         this.setQuotas(quotas);
     }
@@ -29,7 +29,8 @@ public class Socio extends Aluno {
         return res;
     }
 
-    public void setQuotas(Map<String, Quota> quotas) {
+    public void setQuotas(Map<String, Quota> quotas) throws ParametrosInvalidosException  {
+        if (quotas == null) throw new ParametrosInvalidosException("quotas=null");
         this.quotas = new HashMap<>();
         for(Map.Entry<String, Quota> entry: quotas.entrySet())
             this.quotas.put(entry.getKey(), entry.getValue().clone());

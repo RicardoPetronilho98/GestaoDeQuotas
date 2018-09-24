@@ -1,6 +1,8 @@
 package socios.business;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
@@ -85,5 +87,12 @@ public class SGQ extends Observable {
         /** notifica os Observadores que este objecto foi alterado */
         this.setChanged();
         this.notifyObservers();
+    }
+    
+    public List<Socio> getSociosList() {
+        List<Socio> res = new ArrayList<>();
+        for(Socio s: this.socios.values())
+            res.add(s.clone());
+        return res;
     }
 }

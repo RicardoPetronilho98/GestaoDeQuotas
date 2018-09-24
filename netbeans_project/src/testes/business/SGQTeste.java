@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class SGQTeste {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         SGQ sgq = new SGQ();
 

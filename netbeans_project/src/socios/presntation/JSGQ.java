@@ -5,12 +5,13 @@
  */
 package socios.presntation;
 
-import java.awt.Color;
-import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
-import javax.swing.JOptionPane;
-import socios.business.*;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import socios.business.SGQ;
+import socios.business.Socio;
+import socios.business.SocioExisteException;
 
 /**
  *
@@ -25,8 +26,8 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
      * Creates new form JSGQ
      */
     public JSGQ() {
-        this.setResizable(false);
         initComponents();
+        this.setResizable(false);
         
         this.sgq = new SGQ();
         /** Este JFrame regista-se como Observador do SGQ para poder actualizar o ecran */
@@ -42,166 +43,49 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        criarButton = new javax.swing.JButton();
-        cancelarButton = new javax.swing.JButton();
-        nomeTextField = new javax.swing.JTextField();
-        nomeLabel = new javax.swing.JLabel();
-        idadeSpinner = new javax.swing.JSpinner();
-        idadeLabel = new javax.swing.JLabel();
-        sexoLabel = new javax.swing.JLabel();
-        idTextField = new javax.swing.JTextField();
-        idLabel = new javax.swing.JLabel();
-        errorLabel = new javax.swing.JLabel();
-        sexoComboBox = new javax.swing.JComboBox<>();
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList = new javax.swing.JList<>();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        RegistarSocioMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Registar Sócio");
+        setTitle("Sistema de Gestão de Quotas");
 
-        criarButton.setText("criar");
-        criarButton.addActionListener(new java.awt.event.ActionListener() {
+        jList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(jList);
+
+        jMenu1.setText("File");
+
+        RegistarSocioMenuItem.setText("Registar Sócio");
+        RegistarSocioMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                criarButtonActionPerformed(evt);
+                RegistarSocioMenuItemActionPerformed(evt);
             }
         });
+        jMenu1.add(RegistarSocioMenuItem);
 
-        cancelarButton.setText("cancelar");
-        cancelarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarButtonActionPerformed(evt);
-            }
-        });
+        jMenuBar1.add(jMenu1);
 
-        nomeTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomeTextFieldActionPerformed(evt);
-            }
-        });
-
-        nomeLabel.setText("nome");
-
-        idadeLabel.setText("idade");
-
-        sexoLabel.setText("sexo");
-
-        idTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idTextFieldActionPerformed(evt);
-            }
-        });
-
-        idLabel.setText("id");
-
-        errorLabel.setForeground(new java.awt.Color(0, 204, 0));
-
-        sexoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "F", "M" }));
-        sexoComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sexoComboBoxActionPerformed(evt);
-            }
-        });
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(idadeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(nomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(sexoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(idLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(criarButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelarButton)
-                        .addGap(23, 23, 23))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(idadeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(sexoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(15, 15, 15))))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nomeLabel)
-                    .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idadeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idadeLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sexoLabel)
-                    .addComponent(sexoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(criarButton)
-                    .addComponent(cancelarButton)
-                    .addComponent(errorLabel))
-                .addContainerGap())
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void criarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criarButtonActionPerformed
-        
-        String nome = this.nomeTextField.getText();
-        int idade = (Integer) this.idadeSpinner.getValue();
-        char sexo = this.sexoComboBox.getSelectedItem().toString().charAt(0);
-        String cod = this.idTextField.getText();
-        
-        try { 
-            this.sgq.addSocio( new Socio(nome, idade, sexo, cod, new HashMap<>()) );
-            JOptionPane.showMessageDialog(this, "Sócio registado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-        } catch (ParametrosInvalidosException e){
-            JOptionPane.showMessageDialog(this, "Parâmetros inválidos", "Insucesso", JOptionPane.ERROR_MESSAGE);
-        } catch (SocioExisteException e) {
-            JOptionPane.showMessageDialog(this, "Sócio - " + e.getMessage() + " - já existe!", "Insucesso", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_criarButtonActionPerformed
-
-    private void cancelarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarButtonActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_cancelarButtonActionPerformed
-
-    private void nomeTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nomeTextFieldActionPerformed
-
-    private void idTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idTextFieldActionPerformed
-
-    private void sexoComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sexoComboBoxActionPerformed
+    private void RegistarSocioMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistarSocioMenuItemActionPerformed
+        new JRegistarSocio(this).setVisible(true);
+    }//GEN-LAST:event_RegistarSocioMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,22 +124,25 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
     
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("SGQ updated!");
-        System.out.println(this.sgq);
+        this.updateJList();
+    }
+    
+    private void updateJList() {
+        DefaultListModel model = new DefaultListModel();
+        for(Socio s: this.sgq.getSociosList())
+            model.addElement(s.toString());
+        this.jList.setModel(model);
+    }
+    
+    public void addSocio(Socio socio) throws SocioExisteException {
+        this.sgq.addSocio(socio);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelarButton;
-    private javax.swing.JButton criarButton;
-    private javax.swing.JLabel errorLabel;
-    private javax.swing.JLabel idLabel;
-    private javax.swing.JTextField idTextField;
-    private javax.swing.JLabel idadeLabel;
-    private javax.swing.JSpinner idadeSpinner;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel nomeLabel;
-    private javax.swing.JTextField nomeTextField;
-    private javax.swing.JComboBox<String> sexoComboBox;
-    private javax.swing.JLabel sexoLabel;
+    private javax.swing.JMenuItem RegistarSocioMenuItem;
+    private javax.swing.JList<String> jList;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 }

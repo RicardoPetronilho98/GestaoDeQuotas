@@ -16,16 +16,16 @@ import javax.swing.*;
 public class JRegistarSocio extends JFrame {
    
     /* Parent window -> para conseguir tranferir a informação do Sócio (criado) para a window principal */
-    private JSGQ JSGQframe; 
+    private JSGQ parent; 
 
     /**
      * Creates new form JRegistarSocio
      */
-    public JRegistarSocio(JSGQ JSGQframe) {
+    public JRegistarSocio(JSGQ parent) {
         initComponents();
         
         this.setResizable(false);
-        this.JSGQframe = JSGQframe;
+        this.parent = parent;
     }
 
     /**
@@ -45,8 +45,6 @@ public class JRegistarSocio extends JFrame {
         idadeSpinner = new javax.swing.JSpinner();
         idadeLabel = new javax.swing.JLabel();
         sexoLabel = new javax.swing.JLabel();
-        idTextField = new javax.swing.JTextField();
-        idLabel = new javax.swing.JLabel();
         errorLabel = new javax.swing.JLabel();
         sexoComboBox = new javax.swing.JComboBox<>();
 
@@ -89,14 +87,6 @@ public class JRegistarSocio extends JFrame {
 
         sexoLabel.setText("sexo");
 
-        idTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idTextFieldActionPerformed(evt);
-            }
-        });
-
-        idLabel.setText("id");
-
         errorLabel.setForeground(new java.awt.Color(0, 204, 0));
 
         sexoComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "F", "M" }));
@@ -116,7 +106,6 @@ public class JRegistarSocio extends JFrame {
                     .addComponent(idadeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(nomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(sexoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(idLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -128,7 +117,6 @@ public class JRegistarSocio extends JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(nomeTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(idadeSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(sexoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -149,11 +137,7 @@ public class JRegistarSocio extends JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(sexoLabel)
                     .addComponent(sexoComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(criarButton)
                     .addComponent(cancelarButton)
@@ -169,10 +153,12 @@ public class JRegistarSocio extends JFrame {
         String nome = this.nomeTextField.getText();
         int idade = (Integer) this.idadeSpinner.getValue();
         char sexo = this.sexoComboBox.getSelectedItem().toString().charAt(0);
-        String cod = this.idTextField.getText();
+        int id = this.parent.getCurrentId();
+        String cod = Integer.toString( id );
 
         try { 
-            this.JSGQframe.addSocio(new Socio(nome, idade, sexo, cod, new HashMap<>()));
+            this.parent.addSocio(new Socio(nome, idade, sexo, cod, new HashMap<>()));
+            this.parent.setCurrentId(id + 1);
             JOptionPane.showMessageDialog(this, "Sócio registado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         } catch (ParametrosInvalidosException e){
             JOptionPane.showMessageDialog(this, "Por favor preencha todos os campos", "Insucesso", JOptionPane.ERROR_MESSAGE);
@@ -190,10 +176,6 @@ public class JRegistarSocio extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeTextFieldActionPerformed
 
-    private void idTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_idTextFieldActionPerformed
-
     private void sexoComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sexoComboBoxActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_sexoComboBoxActionPerformed
@@ -202,8 +184,6 @@ public class JRegistarSocio extends JFrame {
     private javax.swing.JButton cancelarButton;
     private javax.swing.JButton criarButton;
     private javax.swing.JLabel errorLabel;
-    private javax.swing.JLabel idLabel;
-    private javax.swing.JTextField idTextField;
     private javax.swing.JLabel idadeLabel;
     private javax.swing.JSpinner idadeSpinner;
     private javax.swing.JPanel jPanel1;

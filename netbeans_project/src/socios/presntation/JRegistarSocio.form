@@ -46,7 +46,6 @@
                   <Component id="idadeLabel" max="32767" attributes="0"/>
                   <Component id="nomeLabel" max="32767" attributes="0"/>
                   <Component id="sexoLabel" alignment="0" max="32767" attributes="0"/>
-                  <Component id="idLabel" alignment="0" max="32767" attributes="0"/>
                   <Component id="errorLabel" alignment="0" min="-2" pref="140" max="-2" attributes="0"/>
               </Group>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -60,7 +59,6 @@
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="idTextField" min="-2" pref="207" max="-2" attributes="0"/>
                           <Component id="nomeTextField" min="-2" pref="207" max="-2" attributes="0"/>
                           <Component id="idadeSpinner" alignment="0" min="-2" pref="48" max="-2" attributes="0"/>
                           <Component id="sexoComboBox" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -89,12 +87,7 @@
                   <Component id="sexoLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="sexoComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="idTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="idLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="28" max="32767" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="criarButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cancelarButton" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -142,16 +135,6 @@
     <Component class="javax.swing.JLabel" name="sexoLabel">
       <Properties>
         <Property name="text" type="java.lang.String" value="sexo"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="idTextField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="idTextFieldActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="idLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="id"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="errorLabel">

@@ -8,17 +8,20 @@ import java.util.Observer;
 public class SGQ extends Observable {
 
     private Map<String, Socio> socios;
+    private int currentId;
 
     public SGQ() {
         this.socios = new HashMap<>();
+        this.currentId = 999;
 
         /** notifica os Observadores que este objecto foi alterado */
         this.setChanged();
         this.notifyObservers();
     }
 
-    public SGQ(Map<String, Socio> info) {
+    public SGQ(Map<String, Socio> info, int currentId) {
         this.setSocios(info);
+        this.currentId = currentId;
 
         /** notifica os Observadores que este objecto foi alterado */
         this.setChanged();
@@ -27,6 +30,7 @@ public class SGQ extends Observable {
 
     public SGQ(SGQ outroSGQ) {
         this.socios = outroSGQ.getSocios();
+        this.currentId = outroSGQ.getCurrentId();
 
         /** notifica os Observadores que este objecto foi alterado */
         this.setChanged();
@@ -48,6 +52,14 @@ public class SGQ extends Observable {
         /** notifica os Observadores que este objecto foi alterado */
         this.setChanged();
         this.notifyObservers();
+    }
+
+    public int getCurrentId() {
+        return this.currentId;
+    }
+
+    public void setCurrentId(int currentId) {
+        this.currentId = currentId;
     }
 
     @Override

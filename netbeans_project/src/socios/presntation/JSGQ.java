@@ -5,6 +5,8 @@
  */
 package socios.presntation;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.DefaultListModel;
@@ -22,6 +24,8 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
     
     /** SGQ (Modelo) é o singleton */
     private SGQ sgq;
+    /** necessário na visualização de quotas */
+    private List<String> sociosIds;
 
     /**
      * Creates new form JSGQ
@@ -33,6 +37,7 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
         this.sgq = new SGQ();
         /** Este JFrame regista-se como Observador do SGQ para poder actualizar o ecran */
         this.sgq.addObserver(this);
+        this.sociosIds = new ArrayList<>();
     }
 
     /**
@@ -113,6 +118,10 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
         System.exit(0);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    /**
+     * Inicializa a JFrame que apresenta a lista de Quotas do Sócio selecionado.
+     * @param evt click do rato na lista de Sócios.
+     */
     private void jListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListMouseClicked
         
         int index = -1;
@@ -120,9 +129,10 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
         /* mouse double-click */
         if (evt.getClickCount() == 2) {   
             if ( (index = this.jList.locationToIndex(evt.getPoint())) >= 0 ) {
-                
+                System.out.println(index);
+                System.out.println(this.sociosIds);
                 //TODO obter código do Sócio
-                new JVisualizarQuotas(this, "1").setVisible(true);
+                new JVisualizarQuotas(this, this.sociosIds.get(index)).setVisible(true);
             }
         }
     }//GEN-LAST:event_jListMouseClicked
@@ -170,8 +180,11 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         DefaultListModel model = new DefaultListModel();
-        for(Socio s: this.sgq.getSocios().values())
+        this.sociosIds = new ArrayList<>();
+        for(Socio s: this.sgq.getSocios().values()) {
             model.addElement(s.toString());
+            this.sociosIds.add(s.getCod());
+        }
         this.jList.setModel(model);
     }
     
@@ -180,7 +193,7 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
      * @param socio
      * @throws SocioExisteException 
      */
-    /** Necessária no JRegistarSócio */
+    /* Necessária no JRegistarSócio */
     public void addSocio(Socio socio) throws SocioExisteException {
         this.sgq.addSocio(socio);
     }
@@ -190,9 +203,9 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
      * @param cod código de identificação do código.
      * @param o Observer.
      */
-    /** Necessária no JVisualizarQuota para que a JFrame (JVisualizarQuota)
-      * consiga observar as Quotas do Sócio selecionado.
-      */
+    /* Necessária no JVisualizarQuota para que a JFrame (JVisualizarQuota)
+     * consiga observar as Quotas do Sócio selecionado.
+     */
     public void addObserverToSocio(String cod, Observer o) {
         this.sgq.addObserverToSocio(cod, o);
     }
@@ -202,6 +215,7 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
      * @param cod código de identificação do código.
      * @return retorna a informação de um Sócio.
      */
+    /* Necessária no JVisualizarQuota */
     public Socio getSocio(String cod) {
         return this.sgq.getSocios().get(cod);
     }
@@ -212,9 +226,17 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
      * @param q Quota a ser adicionada.
      * @throws QuotaExisteException 
      */
-    /** Necessária no JRegistarQuota */
+    /* Necessária no JRegistarQuota */
     public void addQuota(String cod, Quota q) throws QuotaExisteException {
         this.sgq.addQuota(cod, q);
+    }
+    
+    public int getCurrentId() { 
+        return this.sgq.getCurrentId();
+    }
+    
+    public void setCurrentId(int id) {
+        this.sgq.setCurrentId(id);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

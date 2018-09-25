@@ -10,7 +10,6 @@ import java.util.Observer;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import socios.business.Quota;
-import socios.business.Socio;
 
 /**
  *
@@ -25,19 +24,26 @@ public class JVisualizarQuotas extends JFrame implements Observer {
     /**
      * Creates new form JVisualizarQuotas
      */
+    /* NOTA: o (cod) é passado como argumento e não o próprio (Sócio)
+     * pois assim é possível atualizar o Sócio diretamente no model (SGQ)
+     */ 
     public JVisualizarQuotas(JSGQ parent, String cod) {
         initComponents();
         this.setResizable(false);
      
         this.parent = parent;
-        
         this.cod = cod;
         /** Sócio está a ser observado por esta window */
-        this.parent.addObserverToSocio(cod, this);
-        
+        this.parent.addObserverToSocio(this.cod, this);
+        /** Inicializa a lista de Quotas a apresentar */
         this.initJList();
+        
+        this.idLabel.setText("id = " + this.cod);
     }
     
+    /**
+     * Inicializa a lista de Quotas a ser apresentada.
+     */
     private void initJList() {
         DefaultListModel model = new DefaultListModel();
         for (Quota q: this.parent.getSocio(this.cod).getQuotas().values())
@@ -57,6 +63,7 @@ public class JVisualizarQuotas extends JFrame implements Observer {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+        idLabel = new javax.swing.JLabel();
 
         setTitle("Visualizar Quotas");
 
@@ -80,15 +87,22 @@ public class JVisualizarQuotas extends JFrame implements Observer {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 271, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(idLabel)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(33, 33, 33)
+                .addComponent(idLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -96,6 +110,10 @@ public class JVisualizarQuotas extends JFrame implements Observer {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Inicializa uma JFrame para registar uma Quota nova.
+     * @param evt click no botão (Registar Quota).
+     */
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new JRegistarQuota(this.parent, this.cod).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -103,7 +121,7 @@ public class JVisualizarQuotas extends JFrame implements Observer {
     /**
      * Atualiza a lista de Quotas do Sócio observado.
      * @param o Sócio observado
-     * @param arg Quotas alteradas
+     * @param arg objeto transmitido pelo Sócio 
      */
     @Override
     public void update(Observable o, Object arg) {
@@ -114,6 +132,7 @@ public class JVisualizarQuotas extends JFrame implements Observer {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel idLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;

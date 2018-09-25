@@ -6,6 +6,7 @@ import java.util.Map;
 public class Socio extends Aluno {
 
     private Map<String, Quota> quotas;
+    private int currentId;
 
     public Socio() {
         super();
@@ -46,6 +47,14 @@ public class Socio extends Aluno {
         
         this.setChanged();
         this.notifyObservers();
+    }
+    
+    public int getCurrentId() {
+        return this.currentId;
+    }
+
+    public void setCurrentId(int currentId) {
+        this.currentId = currentId;
     }
 
     @Override

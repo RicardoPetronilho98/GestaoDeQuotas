@@ -1,6 +1,8 @@
 package socios.business;
 
-public class Aluno {
+import java.util.Observable;
+
+public class Aluno extends Observable {
 
     private String nome;
     private int idade;

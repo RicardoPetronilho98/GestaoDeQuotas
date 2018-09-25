@@ -1,10 +1,9 @@
 package socios.business;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Observer;
 
 public class SGQ extends Observable {
 
@@ -89,10 +88,16 @@ public class SGQ extends Observable {
         this.notifyObservers();
     }
     
-    public List<Socio> getSociosList() {
-        List<Socio> res = new ArrayList<>();
-        for(Socio s: this.socios.values())
-            res.add(s.clone());
-        return res;
+    /**
+     * Adiciona um Observer a um Sócio.
+     * @param cod código do Sócio 
+     * @param o Observer
+     */
+    public void addObserverToSocio(String cod, Observer o) {
+        this.socios.get(cod).addObserver(o);
+    }
+    
+    public void addQuota(String cod, Quota q) throws QuotaExisteException {
+        this.socios.get(cod).addQuota(q);
     }
 }

@@ -8,7 +8,8 @@ package socios.presntation;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
+import socios.business.Quota;
+import socios.business.QuotaExisteException;
 import socios.business.SGQ;
 import socios.business.Socio;
 import socios.business.SocioExisteException;
@@ -48,15 +49,27 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         RegistarSocioMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gestão de Quotas");
 
+        jList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Sem Sócios registados" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
         jList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jList);
 
         jMenu1.setText("File");
 
+        RegistarSocioMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
         RegistarSocioMenuItem.setText("Registar Sócio");
         RegistarSocioMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -64,6 +77,15 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
             }
         });
         jMenu1.add(RegistarSocioMenuItem);
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setText("exit");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
 
@@ -86,6 +108,24 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
     private void RegistarSocioMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistarSocioMenuItemActionPerformed
         new JRegistarSocio(this).setVisible(true);
     }//GEN-LAST:event_RegistarSocioMenuItemActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListMouseClicked
+        
+        int index = -1;
+        
+        /* mouse double-click */
+        if (evt.getClickCount() == 2) {   
+            if ( (index = this.jList.locationToIndex(evt.getPoint())) >= 0 ) {
+                
+                //TODO obter código do Sócio
+                new JVisualizarQuotas(this, "1").setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_jListMouseClicked
 
     /**
      * @param args the command line arguments
@@ -122,20 +162,59 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
         });
     }
     
+    /**
+     * Atualiza a informação de todos os Sócios.
+     * @param o Objeto que está a ser observado.
+     * @param arg obejto transmitido pelo objeto observado.
+     */
     @Override
     public void update(Observable o, Object arg) {
-        this.updateJList();
-    }
-    
-    private void updateJList() {
         DefaultListModel model = new DefaultListModel();
-        for(Socio s: this.sgq.getSociosList())
+        for(Socio s: this.sgq.getSocios().values())
             model.addElement(s.toString());
         this.jList.setModel(model);
     }
     
+    /**
+     * Adiciona um sócio ao SGQ.
+     * @param socio
+     * @throws SocioExisteException 
+     */
+    /** Necessária no JRegistarSócio */
     public void addSocio(Socio socio) throws SocioExisteException {
         this.sgq.addSocio(socio);
+    }
+    
+    /**
+     * Adiciona um Observer a um Sócio.
+     * @param cod código de identificação do código.
+     * @param o Observer.
+     */
+    /** Necessária no JVisualizarQuota para que a JFrame (JVisualizarQuota)
+      * consiga observar as Quotas do Sócio selecionado.
+      */
+    public void addObserverToSocio(String cod, Observer o) {
+        this.sgq.addObserverToSocio(cod, o);
+    }
+    
+    /**
+     * Devolve a informação de um Sócio.
+     * @param cod código de identificação do código.
+     * @return retorna a informação de um Sócio.
+     */
+    public Socio getSocio(String cod) {
+        return this.sgq.getSocios().get(cod);
+    }
+    
+    /**
+     * Adiciona uma Quota ao Sócio.
+     * @param cod código de identificação do código.
+     * @param q Quota a ser adicionada.
+     * @throws QuotaExisteException 
+     */
+    /** Necessária no JRegistarQuota */
+    public void addQuota(String cod, Quota q) throws QuotaExisteException {
+        this.sgq.addQuota(cod, q);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -143,6 +222,7 @@ public class JSGQ extends javax.swing.JFrame implements Observer {
     private javax.swing.JList<String> jList;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 }

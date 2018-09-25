@@ -23,8 +23,8 @@ public class JRegistarSocio extends JFrame {
      */
     public JRegistarSocio(JSGQ JSGQframe) {
         initComponents();
+        
         this.setResizable(false);
-       
         this.JSGQframe = JSGQframe;
     }
 

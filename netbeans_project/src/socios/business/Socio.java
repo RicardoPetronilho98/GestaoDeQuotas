@@ -10,16 +10,25 @@ public class Socio extends Aluno {
     public Socio() {
         super();
         this.quotas = new HashMap<>();
+        
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public Socio(String nome, int idade, char sexo, String cod, Map<String, Quota> quotas) throws ParametrosInvalidosException {
         super(nome, idade, sexo, cod);
         this.setQuotas(quotas);
+        
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public Socio(Socio outroAluno) {
         super(outroAluno);
         this.quotas = outroAluno.getQuotas();
+        
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public Map<String, Quota> getQuotas() {
@@ -34,6 +43,9 @@ public class Socio extends Aluno {
         this.quotas = new HashMap<>();
         for(Map.Entry<String, Quota> entry: quotas.entrySet())
             this.quotas.put(entry.getKey(), entry.getValue().clone());
+        
+        this.setChanged();
+        this.notifyObservers();
     }
 
     @Override
@@ -64,11 +76,17 @@ public class Socio extends Aluno {
     public void addQuota(Quota q) throws QuotaExisteException {
         if (this.quotas.containsKey(q.getCod())) throw new QuotaExisteException(q.getCod());
         this.quotas.put(q.getCod(), q.clone());
+        
+        this.setChanged();
+        this.notifyObservers();
     }
 
     public void removeQuota(String cod) throws QuotaNaoExisteException {
         if (!this.quotas.containsKey(cod)) throw new QuotaNaoExisteException(cod);
         this.quotas.remove(cod);
+        
+        this.setChanged();
+        this.notifyObservers();
     }
 
 }
